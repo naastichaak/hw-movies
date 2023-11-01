@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../config/axios";
-import axios from "axios";
+import { getCast } from "../services/findMovies";
 
 function CastPage() {
   const { movieId } = useParams();
@@ -12,8 +11,7 @@ function CastPage() {
   useEffect(() => {
     setIsLoading(true);
 
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}/credits`)
+    getCast(movieId)
       .then((res) => setCast(res.data.cast))
       .finally(() => setIsLoading(false));
   }, [movieId]);

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../config/axios";
-import axios from "axios";
+import { getReviews } from "../services/findMovies";
 
 function ReviewsPage() {
   const { movieId } = useParams();
@@ -12,8 +11,7 @@ function ReviewsPage() {
   useEffect(() => {
     setIsLoading(true);
 
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}/reviews`)
+    getReviews(movieId)
       .then((res) => setReviews(res.data.results))
       .finally(() => setIsLoading(false));
   }, [movieId]);

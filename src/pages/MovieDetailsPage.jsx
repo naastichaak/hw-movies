@@ -1,7 +1,6 @@
 import { useParams, Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../config/axios";
-import axios from "axios";
+import { getMovie } from "../services/findMovies";
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -12,8 +11,7 @@ function MovieDetailsPage() {
   useEffect(() => {
     setIsLoading(true);
 
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}`)
+    getMovie(movieId)
       .then((res) => setMovie(res.data))
       .finally(() => setIsLoading(false));
   }, [movieId]);

@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../config/axios";
+import { getTrendingMovies } from "../services/findMovies";
 
 function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -10,8 +9,7 @@ function HomePage() {
   useEffect(() => {
     setIsLoading(true);
 
-    axios
-      .get("https://api.themoviedb.org/3/trending/movie/week")
+    getTrendingMovies()
       .then((res) => setMovies(res.data.results))
       .finally(() => setIsLoading(false));
   }, []);
